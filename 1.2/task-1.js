@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers');
-const { log } = require('console');
 const argv = yargs(hideBin(process.argv))
   .alias({
     'year': 'y',
