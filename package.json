@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/PortalShooter/NodeJS#readme",
   "dependencies": {
+    "readline": "^1.3.0",
     "yargs": "^17.3.1"
   }
 }
