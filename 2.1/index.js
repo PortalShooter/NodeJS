@@ -23,7 +23,7 @@ app.get('/api/books', (req, res) => {
 })
 
 app.post('/api/books', (req, res) => {
-    const {body, headers, method, url, params} = req
+    const {body} = req
 
     body.id = new Date().toISOString().slice(0,10).replace(/-/g,'')
     library.push(body)
