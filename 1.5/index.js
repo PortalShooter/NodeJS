@@ -1,11 +1,3 @@
-// const http = require('http');
-
-// const url = `http://api.weatherstack.com/current?${process.env.myAPIKey}&New York`
-    
-// http.get(url, (res) => {
-//     console.log(res);
-// })
-
 const axios = require('axios');
 const rl = require('readline');
 const input = rl.createInterface(process.stdin, process.stdout);
