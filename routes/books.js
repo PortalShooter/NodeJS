@@ -19,8 +19,10 @@ const library = [
 ];
 
 router.get('/', (req, res) => {
-    res.json(library)
-    res.status(200)
+    res.render('books/index', {
+        title: 'Список книг',
+        bookList: library
+    })
 })
 
 router.post('/', (req, res) => {

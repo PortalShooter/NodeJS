@@ -1,12 +1,14 @@
 const express = require('express')
+const userRoutes = require('./routes/user');
+const booksRoutes = require('./routes/books');
+
 const app = express()
 const port = 3000
 
-const booksRoutes = require('./routes/books');
+app.use('/api/user', userRoutes)
 app.use('/api/books', booksRoutes)
 
-const userRoutes = require('./routes/user');
-app.use('/api/user', userRoutes)
+app.set('view engine', 'ejs');
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
