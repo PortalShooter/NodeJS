@@ -80,7 +80,7 @@ router.get('/:id/download', fileMiddleware.single('book'), (req, res) => {
         res.send('Такой книги нет')
     } else {
         res.status(200)
-        res.json(library[idx].fileBook)
+        res.download(library[idx].fileBook)
     }
 })
 
