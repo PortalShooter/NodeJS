@@ -1,12 +1,19 @@
-<h1><%= title %></h1>
-<!--<% console.log(bookList) %>-->
+<%- include('../partials/header.ejs') %> 
 
+<div class="mb-5 pt-3 d-flex align-items-center justify-content-between">
+    <h1><%= title %></h1>
+    <a href="books/create" class="btn btn-primary">Добавить новую книгу</a>
+</div>
 
-<ul>
-    <% bookList.map(el => { console.log(el.title) %>
-    <li><%= el.title %></li>
-    <% }); %>
-</ul>
+<% bookList.map(el => { %>
+    <div class="card mb-3" style="width: 20rem;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><%= el.title %></h5>
+          <p class="card-text"><%= el.description.slice(0, 50) %></p>
+          <a href="books/<%= el.id %>" class="btn btn-primary">Подробнее</a>
+        </div>
+    </div>
+<% }); %>
 
-
-
+<%- include('../partials/footer.ejs') %> 
