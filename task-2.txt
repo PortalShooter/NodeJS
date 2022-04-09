@@ -1,5 +1,5 @@
 1.
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker pull node:15.14
+$ docker pull node:15.14
 15.14: Pulling from library/node
 bfde2ec33fbc: Pull complete 
 787f5e2f1047: Pull complete 
@@ -16,7 +16,7 @@ docker.io/library/node:15.14
 
 
 2.
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker run --name mynode -it -e NAME=Илья -e SURNAME=Куцевалов node:15.14
+$ docker run --name mynode -it -e NAME=Илья -e SURNAME=Куцевалов node:15.14
 Welcome to Node.js v15.14.0.
 Type ".help" for more information.
 
@@ -32,17 +32,16 @@ undefined
 > 
 (To exit, press Ctrl+C again or Ctrl+D or type .exit)
 > 
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker stop mynode
+$ docker stop mynode
 mynode
-ilay@ilay-A320M-H:~/git/Study/Docker$
 
 
 5.
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker rmi node:15.14
+$ docker rmi node:15.14
 Error response from daemon: conflict: unable to remove repository reference "node:15.14" (must force) - container 412d98ca3524 is using its referenced image 3d3f41722daf
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker rm mynode
+$ docker rm mynode
 mynode
-ilay@ilay-A320M-H:~/git/Study/Docker$ docker rmi node:15.14
+$ docker rmi node:15.14
 Untagged: node:15.14
 Untagged: node@sha256:608bba799613b1ebf754034ae008849ba51e88b23271412427b76d60ae0d0627
 Deleted: sha256:3d3f41722daf1a77c34d6eade6676bbffa2d6a2a21095de2ab0c427a5c942fc9
@@ -55,4 +54,3 @@ Deleted: sha256:f1f4fbb0e7e6e0ce2d9eae1e577f9f6df0a719dd874bff00b2d08895c75c297d
 Deleted: sha256:1eb455ab6d45fdbbd90fccff791ffa228080c052acf464f8da1b1d78650bd706
 Deleted: sha256:1dbe832a694971a925d7d216f49b700c95f402bd72288f9d37eceb1d59dcf72d
 Deleted: sha256:2f4ee6a2e1b5dfb9236cd262e788f9d39109242ca27a4aacb583c8af66ec3ff7
-ilay@ilay-A320M-H:~/git/Study/Docker$ 
