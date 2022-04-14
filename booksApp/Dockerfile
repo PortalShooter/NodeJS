@@ -1,10 +1,11 @@
-FROM node:14.19.1
+FROM node:16.14.2
 
 WORKDIR /app
 
+ARG NODE_ENV=production
 COPY ./package*.json ./
 RUN npm install
-COPY ../ ./
+COPY ./ ./
 
 EXPOSE 3000
 
