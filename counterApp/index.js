@@ -12,6 +12,7 @@ app.get('/counter/:bookId', (req, res) => {
     console.log(req.params);
     console.log(222);
 })
+
 app.get('/counter', (req, res) => {
     console.log(321);
 })

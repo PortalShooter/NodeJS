@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  storage:
+    image: redis
+  books:
+    build: ./booksApp/
+    ports: 
+      - 80:3002
+    environment:
+      - PORT=3002
+      - REDIS_URL=redis://storage
+    depends_on:
+      - storage
