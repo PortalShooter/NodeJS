@@ -1,6 +1,29 @@
 const express = require('express')
 const router = express.Router()
 
+const fetch = require('node-fetch');
+
+async function example() {
+    const response = await fetch('https://api.github.com/users/github');
+    const data = await response.json();
+
+    console.log('example', data);
+}
+
+async function getViewBook(bookId) {
+    const response = await fetch(`http://counter/counter/${bookId}`);
+    const data = await response.json();
+
+    console.log('getViewBook', data);
+}
+
+async function postViewBook(bookId) {
+    const response = await fetch(`http://counter/counter/${bookId}/incr`,  {method: 'POST'});
+    const data = await response.json();
+
+    console.log('postViewBook', data);
+}
+
 const library = [
     {
         "title": "Мартин Иден",
@@ -88,9 +111,14 @@ router.get('/:id', (req, res) => {
             description: 'Похоже такой книги у нас нет)',
         })
     } else {
+
+        postViewBook(id)
+        const viewBook = getViewBook(id)
+
         res.render('books/view', {
             title: library[idx].title,
             book: library[idx],
+            viewBook: viewBook.count,
         })
     }
 })

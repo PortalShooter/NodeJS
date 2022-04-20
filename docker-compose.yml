@@ -4,7 +4,7 @@ services:
   counter:
     build: ./counterApp
     ports:
-      - 80:3002
+      - 3002:3002
     environment:
       - PORT=3002
       - REDIS_URL=redis://storage
@@ -16,6 +16,3 @@ services:
       - 80:3000
     environment:
       - PORT=3000
-      - REDIS_URL=redis://storage
-    depends_on:
-      - storage

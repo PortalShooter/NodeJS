@@ -1,10 +1,13 @@
 const express = require('express');
 const redis = require('redis');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 const REDIS_URL = process.env.REDIS_URL || 'redis://localhost';
 
 const client = redis.createClient({ url: REDIS_URL });
+
+console.log('REDIS_URL', REDIS_URL);
+console.log('client', client);
 
 (async () => {
     await client.connect();
@@ -12,28 +15,25 @@ const client = redis.createClient({ url: REDIS_URL });
 
 const app = express();
 
-function incrementViewBook() {
-    const cnt = await client.incr(bookId);
-}
-
-app.get('/:bookId', async   (req, res) => {
+app.get('/counter/:bookId', async   (req, res) => {
     const {bookId} = req.params
-    
-    try {
-        const cnt = await client.incr(bookId);
-        res.json({ message: `Привет ${bookId} из контейнера! Счетчик = ${cnt}`});
+    const cnt = await client.get(bookId);
+
+    try {    
+        res.status(200).json({count: cnt})
     } catch (e) {
         console.log(e);
         res.status(500).json({errcode: 500, errmsg: 'Ошибка redis!!!'});
     }
+    
 })
 
-app.post('/:bookId/incr', async   (req, res) => {
+app.post('/counter/:bookId/incr', async   (req, res) => {
     const {bookId} = req.params
-    
+    const cnt = await client.incr(bookId);
+
     try {
-        const cnt = await client.incr(bookId);
-        res.json({ message: `Привет ${bookId} из контейнера! Счетчик = ${cnt}`});
+        res.status(200).json({count: cnt})
     } catch (e) {
         console.log(e);
         res.status(500).json({errcode: 500, errmsg: 'Ошибка redis!!!'});
