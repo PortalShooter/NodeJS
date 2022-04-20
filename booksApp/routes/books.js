@@ -3,22 +3,15 @@ const router = express.Router()
 
 const fetch = require('node-fetch');
 
-async function example() {
-    const response = await fetch('https://api.github.com/users/github');
-    const data = await response.json();
-
-    console.log('example', data);
-}
-
 async function getViewBook(bookId) {
-    const response = await fetch(`http://counter/counter/${bookId}`);
+    const response = await fetch(`http://counter:3002/counter/${bookId}`);
     const data = await response.json();
-
     console.log('getViewBook', data);
+    return data.count
 }
 
 async function postViewBook(bookId) {
-    const response = await fetch(`http://counter/counter/${bookId}/incr`,  {method: 'POST'});
+    const response = await fetch(`http://counter:3002/counter/${bookId}/incr`,  {method: 'POST'});
     const data = await response.json();
 
     console.log('postViewBook', data);
@@ -112,14 +105,17 @@ router.get('/:id', (req, res) => {
         })
     } else {
 
-        postViewBook(id)
-        const viewBook = getViewBook(id)
-
-        res.render('books/view', {
-            title: library[idx].title,
-            book: library[idx],
-            viewBook: viewBook.count,
-        })
+        (async () => {
+            postViewBook(id)
+            const viewBook = await getViewBook(id)
+    
+            res.render('books/view', {
+                title: library[idx].title,
+                book: library[idx],
+                viewBook: viewBook,
+            })
+        })();
+       
     }
 })
 
