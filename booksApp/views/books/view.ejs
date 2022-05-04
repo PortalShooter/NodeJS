@@ -19,4 +19,69 @@
 <h2>Описание</h2>
 <p><%= book.description %> </p>
 
+<h2 class="mt-5">Комментарии</h2>
+<form id="form" method="POST" class="mt-1">
+
+    <div class="form-group mb-3">
+        <label for="userName">Как вас зовут?</label>
+        <input type="text"
+               name="userName"
+               class="form-control"
+               id="userName">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="userComment">Комментарий</label>
+        <textarea
+                rows="3"
+                name="userComment"
+                class="form-control"
+                id="userComment"
+        ></textarea>
+    </div>
+
+    <div class="form-group text-right mb-5">
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
+
+</form>
+
+<ul id="comments" class="list-group">
+
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const roomName = location.pathname.split('/').pop();
+    const socket = io.connect('/', { query: `roomName=${roomName}`});
+  
+    const form = document.getElementById('form');
+    const userName = document.getElementById('userName');
+    const userComment = document.getElementById('userComment');
+    const comments = document.getElementById('comments');
+  
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (userName.value && userComment.value) {
+        socket.emit('book-comment',{ userName: userName.value, userComment: userComment.value });
+        userComment.value = '';
+      }
+    });
+
+    socket.on('book-comment', ({userName, userComment}) => {
+        const item = document.createElement('li');
+        item.classList.add('list-group-item')
+        comments.append(item)
+
+        const name = document.createElement('strong');
+        name.textContent = userName
+        item.append(name)
+
+        const comment = document.createElement('div');
+        comment.textContent = userComment
+        item.append(comment)
+    })
+
+</script>
+
 <%- include('../partials/footer.ejs') %> 
