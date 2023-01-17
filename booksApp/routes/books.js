@@ -66,24 +66,30 @@ router.get('/update/:id', async (req, res) => {
     
 })
 
-router.get('/:id', async (req, res) => {
-
-    const {id} = req.params
-    const book = await Book.findOne({ id })
-
-    if(book) {
-        res.render('books/view', {
-            title: book.title,
-            book: book,
-        })
-        
-    } else {
-        res.render('error/404', {
-            title: '404',
-            description: 'Похоже такой книги у нас нет)',
-        })
-    }
+router.get(':id', async (req, res, next) => {
+  const repo = container.get(BooksRepository);
+  const book = await repo.getBook(req.params.id);
+  res.json(book);
 })
+
+// router.get('/:id', async (req, res) => {
+
+//     const {id} = req.params
+//     const book = await Book.findOne({ id })
+
+//     if(book) {
+//         res.render('books/view', {
+//             title: book.title,
+//             book: book,
+//         })
+        
+//     } else {
+//         res.render('error/404', {
+//             title: '404',
+//             description: 'Похоже такой книги у нас нет)',
+//         })
+//     }
+// })
 
 router.post('/delete/:id', async (req, res) => {
     const {id} = req.params;
