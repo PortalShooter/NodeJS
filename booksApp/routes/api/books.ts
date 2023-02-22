@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express';
 const router = express.Router()
-const fileMiddleware = require('../../middleware/file')
+import fileMiddleware from '../../middleware/file';
 
 const bodyParser = require('body-parser')
 router.use(bodyParser.json())
@@ -93,8 +93,8 @@ router.put('/:id', (req, res) => {
         res.send('Такой книги нет')
     } else {
         const {body} = req
-        for(key in body) {
-            library[idx][key] = body[key]
+        for(let key in body) {
+            library?[idx]?[key] = body[key]
         }
         res.status(200)
         res.json(library[idx])

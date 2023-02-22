@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router()
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const User = require('../models/user')
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import User from '../models/user';
 
 passport.use(new LocalStrategy(
 	function(username, password, done) {

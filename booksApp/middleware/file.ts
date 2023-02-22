@@ -1,17 +1,17 @@
-const multer  = require('multer')
+import multer from 'multer';
 
 const storage = multer.diskStorage({
-  destination(req, file, cb) {
+  destination(req: any, file: any, cb: any) {
     cb(null, 'public/books')
   },
-  filename(req, file, cb) {
+  filename(req: any, file: any, cb: any) {
     cb(null, file.originalname + new Date().toISOString())
   }
 })
 
 const types = ['application/epub+zip', 'text/plain', 'application/pdf']
 
-const fileFilter = (req, file, cd) => {
+const fileFilter = (req: any, file: any, cd: any) => {
 
   if(types.includes(file.mimetype)) {
     cd(null, true)
