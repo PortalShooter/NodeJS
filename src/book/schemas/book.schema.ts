@@ -8,11 +8,20 @@ export class Book {
   @Prop({ required: true })
   public title: string;
 
-  @Prop()
+  @Prop({ default: '' })
   public description: string;
 
-  @Prop()
+  @Prop({ required: true })
   public authors: string;
+
+  @Prop({ default: '' })
+  public favorite: string;
+
+  @Prop({ default: '' })
+  public fileCover: string;
+
+  @Prop({ default: '' })
+  public fileName: string;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

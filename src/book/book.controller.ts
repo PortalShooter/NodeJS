@@ -8,7 +8,6 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { IBook } from './interfaces/IBook';
 import { BookDocument } from './schemas/book.schema';
 
 @Controller('book')
@@ -21,12 +20,12 @@ export class BookController {
   }
 
   @Post()
-  create(data) {
-    return this.bookService.create(data);
+  create(@Body() body) {
+    return this.bookService.create(body);
   }
 
   @Put(':id')
-  public update(@Param() { id }, @Body() body) {
+  public update(@Param('id') id: string, @Body() body) {
     return this.bookService.update(id, body);
   }
 
