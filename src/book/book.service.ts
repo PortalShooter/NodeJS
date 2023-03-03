@@ -28,8 +28,8 @@ export class BookService {
     return book.save();
   }
 
-  public update(id: string, data) {
-    return this.BookModel.findOneAndUpdate({ _id: id }, data);
+  public update(id: string, body) {
+    return this.BookModel.findOneAndUpdate({ _id: id }, body);
   }
 
   public delete(id: string) {

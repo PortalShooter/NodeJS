@@ -9,6 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { BookDocument } from './schemas/book.schema';
+import { IBook } from './interfaces/IBook';
 
 @Controller('book')
 export class BookController {
@@ -25,7 +26,8 @@ export class BookController {
   }
 
   @Put(':id')
-  public update(@Param('id') id: string, @Body() body) {
+  public update(@Param('id') id: string, @Body() body: IBook) {
+    console.log(body);
     return this.bookService.update(id, body);
   }
 
