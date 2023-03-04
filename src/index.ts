@@ -1,27 +1,37 @@
-import {of, from, timer, range } from 'rxjs';
+import { from } from 'rxjs';
+import { filter, pluck, delay, tap } from 'rxjs/operators';
 
-const o = range(0, 10)
+(async function github() {
+  const res = await fetch(
+    'https://api.github.com/search/repositories?q=${rxjs}',
+  ).then(res => res.json());
 
-o.subscribe({
-  next: (value: any) => console.log('Next:', value),
-  complete: () => console.log('Complete!'),
-  error: (error) => console.log('Error!', error)
-});
+  interface IItem {
+    archived: boolean;
+  }
 
+  const data$ = from(res.items);
 
-(async function flows() {
-  const res = await fetch('https://api.github.com/search/repositories?q=${rxjs}').then(res => res.json())
+  data$
+    .pipe(
+      delay(1300),
+      tap(n => filter((item: IItem) => item.archived !== true)),
+    )
+    .subscribe({
+      next: result => console.log(result),
+      complete: () => console.log('done'),
+    });
+})();
 
-  const data$ = from(res.items)
+(async function gitlab() {
+  const res = await fetch('https://gitlab.com/api/v4/projects').then(res =>
+    res.json(),
+  );
 
-  
+  const data$ = from(res);
 
-  timer(5000)
-  data$.pipe()
-  .subscribe({
+  data$.pipe(pluck('name')).subscribe({
     next: result => console.log(result),
-    complete: () => console.log('done')
+    complete: () => console.log('done'),
   });
-})()
-
-
+})();
