@@ -1,16 +1,19 @@
 import { BookService } from './book.service';
 import {
   Body,
+  Catch,
   Controller,
   Delete,
   Get,
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { BookDocument } from './schemas/book.schema';
 import { IBook } from './interfaces/IBook';
 
+@Catch()
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
