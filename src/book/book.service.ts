@@ -4,15 +4,6 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Book, BookDocument } from './schemas/book.schema';
 import { Connection, Model } from 'mongoose';
 
-const data = [
-  {
-    id: '1',
-    title: 'Мартин Иден',
-    description: 'Прекрасная книга',
-    authors: 'Джек Лондон',
-  },
-];
-
 @Injectable()
 export class BookService {
   constructor(
