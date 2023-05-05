@@ -1,0 +1,12 @@
+
+<% if(user){ %>
+  <h1>Привет, <%= user.name.familyName %></h1>
+  <div>
+    <a href="http://127.0.0.1:3000/account">Открыть профиль</a>
+  </div>
+  <div>
+    <a href="http://127.0.0.1:3000/logout">Выйти</a>
+  </div>
+<% } else{ %>  
+  <h1>Пожалуйста, <a href="http://127.0.0.1:3000/auth/yandex/callback">войдите в систему</a></h1>
+<% } %>
