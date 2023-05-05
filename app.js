@@ -50,20 +50,23 @@ app.get('/', (req, res) => {
 
 app.get('/account', isAuthenticated, (req, res) => {
   res.render('profile', {user: req.user})
-  // res.json({user: req.user})
 });
 
 app.get('/auth/yandex', 
   passport.authenticate('yandex')
 );
 
-app.get('/logout', (req, res) => {
+app.get('/login', function(req, res){
+  res.render('login', { user: req.user });
+});
 
-
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
 });
 
 app.get('/auth/yandex/callback',
-  passport.authenticate('yandex', {failureRedirect: '/'}),
+  passport.authenticate('yandex', {failureRedirect: '/login'}),
   (req, res) => {
     res.redirect('/');
   }
